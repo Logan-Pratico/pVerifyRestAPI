@@ -1,3 +1,4 @@
+package payers;
 import java.io.IOException;
 
 import okhttp3.MediaType;
@@ -11,9 +12,11 @@ public class GetPayers {
 	OkHttpClient client = new OkHttpClient();
 	MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
 	RequestBody body = RequestBody.create(mediaType, "username=pverify_demo&password=pverify%40949&grant_type=password");
+	private String payer;
+	private StringToJsonPayers json = new StringToJsonPayers();
 	
 	
-public String run(String url, String token) throws IOException {
+public void setJson(String url, String token) throws IOException {
 	Request request = new Request.Builder()
 	  .url(url)
 	  .get()
@@ -25,13 +28,21 @@ public String run(String url, String token) throws IOException {
 	  .addHeader("postman-token", "fa82e2d5-4acc-df1f-bccb-6838df4e0704")
 	  .build();
 	try(Response response = client.newCall(request).execute()){
-		return response.body().string();
+		payer = response.body().string();
+		System.out.println(payer);
+		json.convert(payer);
+		
+		
 	}
 	
 }
-	public static void main(String[] args) throws IOException {
-		GetPayers payers = new GetPayers();
-		String response = payers.run("https://www.pverify.net/TestEligibilityRest/API/GetPayers", "rfhPfKNUD1niSd34T6--m33ahCSvsJ_yDUik0-_VJfcC4I4iTRKDMBk6AihLfx_9xeV8KuBwcT3tLXEnXXXHd_ByaSAsVP4xJKDs0LlkPbbGt0qg3MJB2glJNXPmgyuMFERJNKD7tWFyjRh_-fXkdxqiog8WBuQ6ldUh_EyPP0EcpbaF1k2JS102rrm13-8tZT1S6SdoUU_thCiHXOHLK80DbClsIqiuHUWmD4cgPYU");
-		System.out.println(response);
-	}
+
+public StringToJsonPayers getJson() {
+	return json;
+}
+//	public static void main(String[] args) throws IOException {
+//		GetPayers payers = new GetPayers();
+//		String response = payers.run("https://www.pverify.net/TestEligibilityRest/API/GetPayers", "1JBs-qOasIqUf6HwotJka1Y9fES__JMEJVqIiJ8QjAGOAjF6SxF3TEVhhTU0VraJAtBu_2AiGYUhxwBuxoV-aOzThadgbIBcvMYCZeLAKWjN3I4cSsJ3Ttdo8G97qs4j7ac8B9uDwyYcU2cu2JpTKEsG4K6RC1NxpJW9m4_9l4Pbi1SwVDYMm-lNlEM2lC8A-iiC3jf5Wm1ezgKyBeLEF4Ex4Uf6BlhwTyYEC_n9brE");
+//		System.out.println(response);
+//	}
 }

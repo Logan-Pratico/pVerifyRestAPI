@@ -1,3 +1,4 @@
+package eligibility;
 import java.io.IOException;
 
 import okhttp3.MediaType;
@@ -10,10 +11,11 @@ public class EligibilityInquiry {
 	OkHttpClient client = new OkHttpClient();
 	MediaType mediaType = MediaType.parse("");
 	RequestBody body = RequestBody.create(mediaType, "{    \"payerCode\": \"00192\",\r\n    \"provider\": {\r\n        \"firstName\": \"\",\r\n        \"middleName\": \"\",\r\n        \"lastName\": \" last name vaue\",\r\n        \"npi\": \"1234567890\",\r\n    },\r\n    \"subscriber\": {\r\n        \"firstName\": \"\",\r\n        \"middleName\": \"\",\r\n        \"lastName\": \"\",\r\n        \"memberID\": \"913619424\",\r\n    },\r\n    \"dependent\": {\r\n        \"patient\": {\r\n            \"firstName\": \"\",\r\n            \"middleName\": \"\",\r\n            \"lastName\": \"\",\r\n            \"dob\": \"07/04/1985\",\r\n            \"gender\": \"\",\r\n        },\r\n        \"relationWithSubscriber\": \"\"\r\n    },\r\n    \"isSubscriberPatient\": \"False\",\r\n    \"doS_StartDate\": \"01/24/2017\",\r\n    \"doS_EndDate\": \"01/24/2017\",\r\n    \"serviceCodes\": [\r\n        \"30\"\r\n    ],\r\n\r\n    \"requestSource\": \"RestAPI\"\r\n}\r\n");
+	private StringToJsonEligibility json = new StringToJsonEligibility();
 	private String inquiry;
 	
 	
-	public void setInquiry(String url, String token) throws IOException{
+	public void setJson(String url, String token) throws IOException{
 		Request request = new Request.Builder()
 	  .url(url)
 	  .post(body)
@@ -26,18 +28,15 @@ public class EligibilityInquiry {
 	  .build();
 		try(Response response = client.newCall(request).execute();){
 			inquiry = response.body().string();
-//			return response.body().string();
+			System.out.println(inquiry);
+			json.convert(inquiry);
 		}
 	}
-	public String getInquiry() {
-		return inquiry;
+	public StringToJsonEligibility getJson() {
+		return json;
 	}
 	
-//	public static void main(String[] args) throws IOException {
-//		EligibilityInquiry inquiry = new EligibilityInquiry();
-//		String response = inquiry.run("https://www.pverify.net/TestEligibilityRest/API/EligibilityInquiry", "rfhPfKNUD1niSd34T6--m33ahCSvsJ_yDUik0-_VJfcC4I4iTRKDMBk6AihLfx_9xeV8KuBwcT3tLXEnXXXHd_ByaSAsVP4xJKDs0LlkPbbGt0qg3MJB2glJNXPmgyuMFERJNKD7tWFyjRh_-fXkdxqiog8WBuQ6ldUh_EyPP0EcpbaF1k2JS102rrm13-8tZT1S6SdoUU_thCiHXOHLK80DbClsIqiuHUWmD4cgPYU");
-//		System.out.println(response);
-//	}
+
 
 	
 

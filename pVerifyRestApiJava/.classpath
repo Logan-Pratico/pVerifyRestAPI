@@ -5,5 +5,7 @@
 	<classpathentry kind="lib" path="C:/Users/Logan/Documents/pVerify/Java Library/okhttp-3.9.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Logan/Downloads/okio-1.13.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Logan/Documents/pVerify/Java Library/java-json.jar/java-json.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Logan/Downloads/gson-2.8.2-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Logan/Downloads/gson-2.3.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
